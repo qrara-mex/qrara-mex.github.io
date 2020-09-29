@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Table V03</title>
+	<title>Precios</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -26,11 +26,37 @@
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
-				<div class="table100 ver5 m-b-110">
+				<div id="myTable" class="table100 ver5 m-b-110">
 					<table data-vertable="ver5">
 						<thead>
 							<tr class="row100 head">
-								<th class="column100 column1" data-column="column1"></th>
+								<th class="column100 column1" data-column="column1">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Insertar Tarjeta</button>
+
+                                        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-sm">
+                                                <div class="modal-content">
+                                                
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel2">Insertar Prenda</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Datos</h4>
+                                                    <!-- Here set form -->
+                                                    <input type="text" /> <p>
+                                                    <input type="text" />
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="btn btn-primary">Agregar</button>
+                                                </div>
+                                            
+                                                </div>
+                                            </div>
+                                        </div>
+                                </th>
 								<th class="column100 column2" data-column="column2">Sunday</th>
 								<th class="column100 column3" data-column="column3">Monday</th>
 								<th class="column100 column4" data-column="column4">Tuesday</th>
@@ -147,6 +173,14 @@
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+
+    <script>
+        function add_fields() {
+            var table = document.getElementById("myTable");
+            var row = table.insertRow(-1).innerHTML = '<tr><td><textarea name ="Question" placeholder="Question" th: field = "${questionAnswerSet.question}" id="question" style = "resize: none; width:100%;"></textarea></td><td><textarea name="Answer" placeholder ="Answer" th: field = "${questionAnswerSet.answer}" id="answer" style="resize:none;width: 100%;"></textarea></td ></tr>';
+            }
+        </script>
 
 </body>
 </html>
