@@ -26,58 +26,51 @@
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
-				<div id="myTable" class="table100 ver5 m-b-110">
-					<table data-vertable="ver5">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Insertar Prenda</button>
+
+                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                            
+                            <div class="modal-header">
+                                <h7 class="modal-title" id="myModalLabel2">Precio en MEX</h7>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Here set form -->
+                                <input id="mex" type="number" /> 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" onclick="add_fields();">Agregar</button>
+                            </div>
+                        
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calc_total();">Calcular Totales</button>
+                
+                <div class="table100 ver5 m-b-110">
+					<table id="myTable" data-vertable="ver5">
 						<thead>
 							<tr class="row100 head">
-								<th class="column100 column1" data-column="column1">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Insertar Prenda</button>
-
-                                        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-                                            <div class="modal-dialog modal-sm">
-                                                <div class="modal-content">
-                                                
-                                                <div class="modal-header">
-                                                    <h7 class="modal-title" id="myModalLabel2">Precio en MEX</h7>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Here set form -->
-                                                    <input id="mex" type="number" /> 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                    <button type="button" class="btn btn-primary" onclick="add_fields();">Agregar</button>
-                                                </div>
-                                            
-                                                </div>
-                                            </div>
-                                        </div>
-                                </th>
-
-								<th class="column100 column2" data-column="column2">Precio MEX</th>
-								<th class="column100 column3" data-column="column3">USD</th>
-								<th class="column100 column4" data-column="column4">30%</th>
-								<th class="column100 column5" data-column="column5">Total USD</th>
+								<th class="column100 column1" data-column="column1">Precio MEX</th>
+								<th class="column100 column2" data-column="column2">USD</th>
+								<th class="column100 column3" data-column="column3">30%</th>
+								<th class="column100 column4" data-column="column4">Total USD</th>
+								<th class="column100 column5" data-column="column5">Total CUC</th>
 								<th class="column100 column6" data-column="column6">Total CUP</th>
-								<th class="column100 column7" data-column="column7">Total USD</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr class="row100">
-								<td class="column100 column1" data-column="column1">Lawrence Scott</td>
-								<td class="column100 column2" data-column="column2">8:00 AM</td>
-								<td class="column100 column3" data-column="column3">--</td>
-								<td class="column100 column4" data-column="column4">--</td>
-								<td class="column100 column5" data-column="column5">8:00 AM</td>
-								<td class="column100 column6" data-column="column6">--</td>
-								<td class="column100 column7" data-column="column7">5:00 PM</td>
-                            </tr>
-                            							
-						</tbody>
+						<tbody id="tbody">
+                			
+                        </tbody>
+                        <tfoot id="tfoot">
+
+                        </tfoot>
 					</table>
-				</div>
+                </div>
 			</div>
 		</div>
 	</div>
@@ -98,16 +91,31 @@
 
     <script>
         function add_fields() {
-            var table = document.getElementById("myTable");
-            var mx_price = document.getElementById("mex");
-            var usd_price = mx_price*0.0556;
-            var percent = usd_price*3/10;
-            var tot_usd = Math.ceil(usd_price + percent);
-            var tot_cuc = tot_usd*1.10
-            var tot_cup = tot_cuc*25
+            var table = document.getElementById("tbody");
+            var mx_price = document.getElementById("mex").value;
+            var usd_price = (mx_price*0.0556).toFixed(2);
+            var percent = (usd_price*3/10).toFixed(2);
+            var tot_usd = Math.ceil(parseFloat(usd_price) + parseFloat(percent));
+            var tot_cuc = (tot_usd*1.10).toFixed(2);
+            var tot_cup = (tot_cuc*25).toFixed(2);
 
-            var row = table.insertRow(-1).innerHTML = '<tr class="row100"> <td class="column100 column1" data-column="column1">'+ mx_price + '</td> <td class="column100 column2" data-column="column2">'+ usd_price +'</td> <td class="column100 column3" data-column="column3">'+ percent +'</td><td class="column100 column4" data-column="column4">'+ tot_usd +'</td><td class="column100 column5" data-column="column5">'+ tot_cuc +'</td><td class="column100 column6" data-column="column6">'+ tot_cup +'</td><td class="column100 column7" data-column="column7">5:00 PM</td></tr>'
+            var row = table.innerHTML += '<tr class="row100" head> <td class="column100 column1" data-column="column1">'+ mx_price + '</td> <td class="column100 column2" data-column="column2">'+ usd_price +'</td> <td class="column100 column3" data-column="column3">'+ percent +'</td><td class="column100 column4" data-column="column4">'+ tot_usd +'</td><td class="column100 column5" data-column="column5">'+ tot_cuc +'</td><td class="column100 column6" data-column="column6">'+ tot_cup +'</td></tr>'
             }
+        
+        function calc_total(){
+            var table = document.getElementById("myTable")
+
+            var tot = document.getElementById("tfoot");
+            var totals = [0,0,0,0,0,0]
+
+            for (var i = 1, row; row = table.rows[i]; ++i) {
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    totals[j] += parseFloat(col.textContent)
+                }  
+            }
+            var row = tot.innerHTML = '<tr class="row100"> <th class="column100 column1" data-column="column1">'+ totals[0] + '</th> <th class="column100 column2" data-column="column2">'+ totals[1] +'</th> <th class="column100 column3" data-column="column3">'+ totals[2] +'</th><th class="column100 column4" data-column="column4">'+ totals[3] +'</th><th class="column100 column5" data-column="column5">'+ totals[3] +'</th><th class="column100 column6" data-column="column6">'+ totals[5] +'</th></tr>'
+
+        }
         </script>
 
 </body>
