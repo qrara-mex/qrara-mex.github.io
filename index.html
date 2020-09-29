@@ -99,7 +99,14 @@
     <script>
         function add_fields() {
             var table = document.getElementById("myTable");
-            var row = table.insertRow(-1).innerHTML = '<tr><td><textarea name ="Question" placeholder="Question" th: field = "${questionAnswerSet.question}" id="question" style = "resize: none; width:100%;"></textarea></td><td><textarea name="Answer" placeholder ="Answer" th: field = "${questionAnswerSet.answer}" id="answer" style="resize:none;width: 100%;"></textarea></td ></tr>';
+            var mx_price = document.getElementById("mex");
+            var usd_price = mx_price*0.0556;
+            var percent = usd_price*3/10;
+            var tot_usd = Math.ceil(usd_price + percent);
+            var tot_cuc = tot_usd*1.10
+            var tot_cup = tot_cuc*25
+
+            var row = table.insertRow(-1).innerHTML = '<tr class="row100"> <td class="column100 column1" data-column="column1">'+ mx_price + '</td> <td class="column100 column2" data-column="column2">'+ usd_price +'</td> <td class="column100 column3" data-column="column3">'+ percent +'</td><td class="column100 column4" data-column="column4">'+ tot_usd +'</td><td class="column100 column5" data-column="column5">'+ tot_cuc +'</td><td class="column100 column6" data-column="column6">'+ tot_cup +'</td><td class="column100 column7" data-column="column7">5:00 PM</td></tr>'
             }
         </script>
 
