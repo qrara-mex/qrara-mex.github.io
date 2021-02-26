@@ -104,7 +104,7 @@
             var table = document.getElementById("myTable")
 
             var tot = document.getElementById("tfoot");
-            var totals = [0,0,0,0,0,0]
+            var totals = [0,0,0,0,0]
 
             for (var i = 1, row; row = table.rows[i]; i++) {
                 if(row.id != "total"){
@@ -113,7 +113,7 @@
                     }  
                 }
             }
-            var row = tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0].toFixed(2) + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3] +'</th><th class="column100 column6" data-column="column6">'+ totals[5].toFixed(2) +'</th></tr>'
+            var row = tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0].toFixed(2) + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3] +'</th><th class="column100 column6" data-column="column6">'+ totals[4].toFixed(2) +'</th></tr>'
 
         }
         </script>
