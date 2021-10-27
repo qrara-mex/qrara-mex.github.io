@@ -59,7 +59,6 @@
 								<th class="column100 column2" data-column="column2">USD</th>
 								<th class="column100 column3" data-column="column3">30%</th>
 								<th class="column100 column4" data-column="column4">Total USD</th>
-								<th class="column100 column6" data-column="column6">Total CUP</th>
 							</tr>
 						</thead>
 						<tbody id="tbody">
@@ -95,9 +94,8 @@
             var usd_price = (mx_price/19).toFixed(2);
             var percent = (usd_price*3/10).toFixed(2);
             var tot_usd = Math.ceil(parseFloat(usd_price) + parseFloat(percent));
-            var tot_cup = (tot_usd*48).toFixed(2);
 
-            var row = table.innerHTML += '<tr class="row100" head> <td class="column100 column1" data-column="column1">'+ mx_price + '</td> <td class="column100 column2" data-column="column2">'+ usd_price +'</td> <td class="column100 column3" data-column="column3">'+ percent +'</td><td class="column100 column4" data-column="column4">'+ tot_usd +'</td><td class="column100 column6" data-column="column6">'+ tot_cup +'</td></tr>'
+            var row = table.innerHTML += '<tr class="row100" head> <td class="column100 column1" data-column="column1">'+ mx_price + '</td> <td class="column100 column2" data-column="column2">'+ usd_price +'</td> <td class="column100 column3" data-column="column3">'+ percent +'</td><td class="column100 column4" data-column="column4">'+ tot_usd +'</td></tr>'
             }
         
         function calc_total(){
@@ -113,7 +111,7 @@
                     }  
                 }
             }
-            var row = tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0].toFixed(2) + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3] +'</th><th class="column100 column6" data-column="column6">'+ totals[4].toFixed(2) +'</th></tr>'
+            var row = tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0].toFixed(2) + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3] +'</th></tr>'
 
         }
         </script>
