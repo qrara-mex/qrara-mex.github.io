@@ -25,7 +25,7 @@
 	
 	<div class="limiter">
 		<div class="container-table100">
-			<div class="wrap-table100" style="overflow-x:auto;">
+ 			<div class="wrap-table100" style="overflow-x:auto;">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Insertar Prenda</button>
 
                     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
@@ -52,26 +52,29 @@
                             </div>
                         </div>
                     </div>
-                
+                  
                 <div class="table100 ver5 m-b-110">
-					<table id="myTable" data-vertable="ver5">
-						<thead>
-							<tr class="row100 head">
-								<th class="column100 column1" data-column="column1">Precio (EUR)</th>
-                                <th class="column100 column2" data-column="column2">Peso (Lb)</th>
-								<th class="column100 column3" data-column="column3">USD</th>
-								<th class="column100 column4" data-column="column4">30%</th>
-                                <th class="column100 column5" data-column="column5">Envío</th>
-								<th class="column100 column6" data-column="column6">Total USD</th>
-								<th class="column100 column7" data-column="column7">Eliminar</th>
-							</tr>
-						</thead>
-						<tbody id="tbody">
-                			
-                        </tbody>
-                        <tfoot id="tfoot">
-                        </tfoot>
-					</table>
+                    <div style="overflow-x: auto;">
+                    
+                        <table id="myTable" data-vertable="ver5">
+                            <thead>
+                                <tr class="row100 head">
+                                    <th class="column100 column1" data-column="column1">Precio (EUR)</th>
+                                    <th class="column100 column2" data-column="column2">Peso (Lb)</th>
+                                    <th class="column100 column3" data-column="column3">USD</th>
+                                    <th class="column100 column4" data-column="column4">30%</th>
+                                    <th class="column100 column5" data-column="column5">Envío</th>
+                                    <th class="column100 column6" data-column="column6">Total USD</th>
+                                    <th class="column100 column7" data-column="column7">Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                
+                            </tbody>
+                            <tfoot id="tfoot">
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
 			</div>
 		</div>
@@ -119,7 +122,7 @@
             
             var row = body.rows.length
 
-            body.innerHTML += '<tr id=' + row + ' class="row100" head> <td class="column100 column1" data-column="column1">'+ eur_price + '</td> <td class="column100 column2" data-column="column2">'+ weight +'</td> <td class="column100 column3" data-column="column3">'+ usd_price +'</td><td class="column100 column4" data-column="column4">'+ percent + '</td><td class="column100 column5" data-column="column5">'+ weight_price + '</td><td class="column100 column6" data-column="column6">'+ tot_usd + '</td><td class="column100 column7" data-column="column7"> <button type="button" class="btn btn-danger" onclick="del_row(' + row + ');"><i class="fa fa-trash"></i></button></td></tr>'         
+            body.innerHTML += '<tr id=' + row + ' class="row100"> <td class="column100 column1" data-column="column1">'+ eur_price + '</td> <td class="column100 column2" data-column="column2">'+ weight +'</td> <td class="column100 column3" data-column="column3">'+ usd_price +'</td><td class="column100 column4" data-column="column4">'+ percent + '</td><td class="column100 column5" data-column="column5">'+ weight_price + '</td><td class="column100 column6" data-column="column6">'+ tot_usd + '</td><td class="column100 column7" data-column="column7"> <button type="button" class="btn btn-danger" onclick="del_row(' + row + ');"><i class="fa fa-trash"></i></button></td></tr>'         
             update_totals()
         }
 
@@ -142,7 +145,7 @@
                     }  
                 }
             }
-            tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0].toFixed(2) + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3] +'</th><th class="column100 column5 data-column="column5">'+ totals[4] +'</th><th class="column100 column6 data-column="column6">'+ totals[5] +'</th><th class="column100 column7 data-column="column7></th></tr>'
+            tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0].toFixed(2) + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3].toFixed(2) +'</th><th class="column100 column5" data-column="column5">'+ totals[4].toFixed(2) +'</th><th class="column100 column6" data-column="column6">'+ totals[5] +'</th><th class="column100 column7" data-column="column7"></th></tr>'
         }
     
         update_totals()
