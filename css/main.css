@@ -59,7 +59,6 @@ ul, li {
 input {
   display: block;
 	outline: none;
-	border: none !important;
 }
 
 textarea {
@@ -67,7 +66,7 @@ textarea {
   outline: none;
 }
 
-textarea:focus, input:focus {
+textarea:focus {
   border-color: transparent !important;
 }
 

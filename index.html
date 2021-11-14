@@ -33,39 +33,43 @@
                             <div class="modal-content">
                             
                             <div class="modal-header">
-                                <h7 class="modal-title" id="myModalLabel2">Precio en MEX</h7>
+                                <h7 class="modal-title" id="myModalLabel2">Insertar Prenda</h7>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <!-- Here set form -->
-                                <input id="mex" type="number" /> 
+                                <label for="eur">Precio (EUR):</label>
+                                <input id="eur" type="number" pattern="[^\s]+" required/> 
+                                <label for="wight">Peso (Lb):</label>
+                                <input id="weight" type="number" pattern="[^\s]+" required/> 
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary" onclick="add_fields();">Agregar</button>
+                                <button type="button" class="btn btn-primary" onclick="validateForm()">Agregar</button>
                             </div>
                         
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="calc_total();">Calcular Totales</button>
                 
                 <div class="table100 ver5 m-b-110">
 					<table id="myTable" data-vertable="ver5">
 						<thead>
 							<tr class="row100 head">
-								<th class="column100 column1" data-column="column1">Precio MEX</th>
-								<th class="column100 column2" data-column="column2">USD</th>
-								<th class="column100 column3" data-column="column3">30%</th>
-								<th class="column100 column4" data-column="column4">Total USD</th>
+								<th class="column100 column1" data-column="column1">Precio (EUR)</th>
+                                <th class="column100 column2" data-column="column2">Peso (Lb)</th>
+								<th class="column100 column3" data-column="column3">USD</th>
+								<th class="column100 column4" data-column="column4">30%</th>
+                                <th class="column100 column5" data-column="column5">Envío</th>
+								<th class="column100 column6" data-column="column6">Total USD</th>
+								<th class="column100 column7" data-column="column7">Eliminar</th>
 							</tr>
 						</thead>
 						<tbody id="tbody">
                 			
                         </tbody>
                         <tfoot id="tfoot">
-
                         </tfoot>
 					</table>
                 </div>
@@ -88,33 +92,61 @@
 
 
     <script>
-        function add_fields() {
-            var table = document.getElementById("tbody");
-            var mx_price = document.getElementById("mex").value;
-            var usd_price = (mx_price/19).toFixed(2);
-            var percent = (usd_price*3/10).toFixed(2);
-            var tot_usd = Math.ceil(parseFloat(usd_price) + parseFloat(percent));
+        function validateForm() {
+            var eur = document.getElementById("eur").value;
 
-            var row = table.innerHTML += '<tr class="row100" head> <td class="column100 column1" data-column="column1">'+ mx_price + '</td> <td class="column100 column2" data-column="column2">'+ usd_price +'</td> <td class="column100 column3" data-column="column3">'+ percent +'</td><td class="column100 column4" data-column="column4">'+ tot_usd +'</td></tr>'
+            if (eur == "" || eur == null) {
+                alert("Debe especificarse el precio.");
             }
-        
-        function calc_total(){
-            var table = document.getElementById("myTable")
+            else{
+                add_fields()   
+            }
+        }
 
+        function add_fields() {
+            var body = document.getElementById("tbody");
+            var eur_price = document.getElementById("eur").value;
+            var weight = document.getElementById("weight").value;
+
+            if (weight == ''){
+                weight = '0'
+            }
+
+            var weight_price = (weight*15).toFixed(2);
+            var usd_price = (eur_price*1.25).toFixed(2);
+            var percent = (usd_price*3/10).toFixed(2);
+            var tot_usd = Math.ceil(parseFloat(usd_price) + parseFloat(percent) + parseFloat(weight_price));
+            
+            var row = body.rows.length
+
+            body.innerHTML += '<tr id=' + row + ' class="row100" head> <td class="column100 column1" data-column="column1">'+ eur_price + '</td> <td class="column100 column2" data-column="column2">'+ weight +'</td> <td class="column100 column3" data-column="column3">'+ usd_price +'</td><td class="column100 column4" data-column="column4">'+ percent + '</td><td class="column100 column5" data-column="column5">'+ weight_price + '</td><td class="column100 column6" data-column="column6">'+ tot_usd + '</td><td class="column100 column7" data-column="column7"> <button type="button" class="btn btn-danger" onclick="del_row(' + row + ');"><i class="fa fa-trash"></i></button></td></tr>'         
+            update_totals()
+        }
+
+        function del_row(rowid)  
+        {   
+            var row = document.getElementById(rowid);
+            row.parentNode.removeChild(row);
+            update_totals()
+        }
+
+        function update_totals() {
+            var table = document.getElementById("tbody");
             var tot = document.getElementById("tfoot");
-            var totals = [0,0,0,0,0]
+            var totals = [0,0,0,0,0,0,0]
 
-            for (var i = 1, row; row = table.rows[i]; i++) {
+            for (var i = 0, row; row = table.rows[i]; i++) {
                 if(row.id != "total"){
                     for (var j = 0, col; col = row.cells[j]; j++) {
                         totals[j] += parseFloat(col.textContent)
                     }  
                 }
             }
-            var row = tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0].toFixed(2) + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3] +'</th></tr>'
-
+            tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0].toFixed(2) + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3] +'</th><th class="column100 column5 data-column="column5">'+ totals[4] +'</th><th class="column100 column6 data-column="column6">'+ totals[5] +'</th><th class="column100 column7 data-column="column7></th></tr>'
         }
-        </script>
+    
+        update_totals()
+    </script>
 
 </body>
 </html>
