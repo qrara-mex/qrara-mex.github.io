@@ -115,7 +115,7 @@
                 weight = '0'
             }
 
-            var weight_price = (weight*15).toFixed(2);
+            var weight_price = (weight*12).toFixed(2);
             var usd_price = (eur_price*1.25).toFixed(2);
             var percent = (usd_price*3/10).toFixed(2);
             var tot_usd = Math.ceil(parseFloat(usd_price) + parseFloat(percent) + parseFloat(weight_price));
