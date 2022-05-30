@@ -41,8 +41,6 @@
                                 <!-- Here set form -->
                                 <label for="mex">Precio (MEX):</label>
                                 <input id="mex" type="number" pattern="[^\s]+" required/> 
-                                <label for="wight">Peso (Lb):</label>
-                                <input id="weight" type="number" pattern="[^\s]+" required value="0"/> 
                                 <label for="amount">Cantidad:</label>
                                 <input id="amount" type="number" pattern="\d+" required step="1" min="1" value="1"/> 
                             </div>
@@ -63,12 +61,10 @@
                                 <tr class="row100 head">
                                     <th class="column100 column1" data-column="column1">Cantidad</th>
                                     <th class="column100 column2" data-column="column2">Precio (MEX)</th>
-                                    <th class="column100 column3" data-column="column3">Peso (Lb)</th>
-                                    <th class="column100 column4" data-column="column4">USD</th>
-                                    <th class="column100 column5" data-column="column5">30%</th>
-                                    <th class="column100 column6" data-column="column6">Envío</th>
-                                    <th class="column100 column7" data-column="column7">Total USD</th>
-                                    <th class="column100 column8" data-column="column8">Eliminar</th>
+                                    <th class="column100 column3" data-column="column3">USD</th>
+                                    <th class="column100 column4" data-column="column4">30%</th>
+                                    <th class="column100 column5" data-column="column5">Total USD</th>
+                                    <th class="column100 column6" data-column="column6">Eliminar</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody">
@@ -101,7 +97,6 @@
         function validateForm() {
             var mex = document.getElementById("mex").value;
             var amount = parseFloat(document.getElementById("amount").value);
-            var weight = parseFloat(document.getElementById("weight").value);
             
             if (mex == "" || mex == null) {
                 alert("Debe especificarse el precio.");
@@ -115,9 +110,6 @@
             else if(amount < 1){
                 alert("La cantidad debe ser mayor que 0.");
             }
-            else if(weight < 0){
-                alert("El peso debe ser mayor o igual a 0.");
-            }
             else{
                 add_fields()   
             }
@@ -126,17 +118,14 @@
         function add_fields() {
             var body = document.getElementById("tbody");
             var mex_price = parseFloat(document.getElementById("mex").value);
-            var weight = parseFloat(document.getElementById("weight").value);
             var amount = parseInt(document.getElementById("amount").value);
-
-            var weight_price = parseFloat((weight*12).toFixed(2));
             var usd_price = parseFloat((amount*mex_price/18).toFixed(2));
             var percent = parseFloat((usd_price*3/10).toFixed(2));
-            var tot_usd = Math.ceil(usd_price + percent + weight_price);
+            var tot_usd = Math.ceil(usd_price + percent);
             
             var row = body.rows.length
 
-            body.innerHTML += '<tr id=' + row + ' class="row100"> <td class="column100 column1" data-column="column1">'+ amount + '</td> <td class="column100 column2" data-column="column2">'+ mex_price +'</td> <td class="column100 column3" data-column="column3">'+ weight +'</td><td class="column100 column4" data-column="column4">'+ usd_price + '</td><td class="column100 column5" data-column="column5">'+ percent + '</td><td class="column100 column6" data-column="column6">'+ weight_price + '</td><td class="column100 column7" data-column="column7">'+ tot_usd + '</td><td class="column100 column8" data-column="column8"> <button type="button" class="btn btn-danger" onclick="del_row(' + row + ');"><i class="fa fa-trash"></i></button></td></tr>'         
+            body.innerHTML += '<tr id=' + row + ' class="row100"> <td class="column100 column1" data-column="column1">'+ amount + '</td> <td class="column100 column2" data-column="column2">'+ mex_price +'</td> <td class="column100 column3" data-column="column3">'+ usd_price +'</td><td class="column100 column4" data-column="column4">'+ percent + '</td><td class="column100 column5" data-column="column5">'+ tot_usd + '</td><td class="column100 column6" data-column="column6"> <button type="button" class="btn btn-danger" onclick="del_row(' + row + ');"><i class="fa fa-trash"></i></button></td></tr>'         
             update_totals()
         }
 
@@ -150,7 +139,7 @@
         function update_totals() {
             var table = document.getElementById("tbody");
             var tot = document.getElementById("tfoot");
-            var totals = [0,0,0,0,0,0,0,0]
+            var totals = [0,0,0,0,0,0]
 
             for (var i = 0, row; row = table.rows[i]; i++) {
                 if(row.id != "total"){
@@ -159,7 +148,7 @@
                     }  
                 }
             }
-            tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0] + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3].toFixed(2) +'</th><th class="column100 column5" data-column="column5">'+ totals[4].toFixed(2) +'</th><th class="column100 column6" data-column="column6">'+ totals[5] +'</th><th class="column100 column7" data-column="column7">' + totals[6] +'</th><th class="column100 column8" data-column="column8"></th></tr>'
+            tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0] + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3].toFixed(2) +'</th><th class="column100 column5" data-column="column5">'+ totals[4].toFixed(2) +'</th><th class="column100 column6" data-column="column6"></th></tr>'
         }
     
         update_totals()
