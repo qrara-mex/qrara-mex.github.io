@@ -155,16 +155,17 @@
         function update_totals() {
             var table = document.getElementById("tbody");
             var tot = document.getElementById("tfoot");
-            var totals = [0,0,0,0,0,0]
+            var totals = [0,0,0,0,0]
 
             for (var i = 0, row; row = table.rows[i]; i++) {
                 if(row.id != "total"){
-                    for (var j = 0, col; col = row.cells[j]; j++) {
-                        totals[j] += parseFloat(col.textContent)
+                    for (var j = 0; j < 4; j++) {
+                        totals[j] += parseFloat(row.cells[j].textContent)
                     }  
+                    totals[4]++;
                 }
             }
-            tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0] + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3].toFixed(2) +'</th><th class="column100 column5" data-column="column5"></th></tr>'
+            tot.innerHTML = '<tr class="row100" id="total"> <th class="column100 column1" data-column="column1">'+ totals[0] + '</th> <th class="column100 column2" data-column="column2">'+ totals[1].toFixed(2) +'</th> <th class="column100 column3" data-column="column3">'+ totals[2].toFixed(2) +'</th><th class="column100 column4" data-column="column4">'+ totals[3].toFixed(2) +'</th><th class="column100 column5" data-column="column5">' + totals[4] + '</th></tr>'
         }
     
         update_totals()
